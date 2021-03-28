@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "322129567350",
+    "project_id": "projectflutter-ddd08",
+    "storage_bucket": "projectflutter-ddd08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322129567350:android:47cda08f71842fd8368957",
+        "android_client_info": {
+          "package_name": "com.abdullahimrahim.flash_chat_app2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322129567350-jugsad0d5lb8nbpi97d0g2andf98bn2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-JIXhvPDbqTiu8xv1A6VwiR7VB6vwDYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322129567350-jugsad0d5lb8nbpi97d0g2andf98bn2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

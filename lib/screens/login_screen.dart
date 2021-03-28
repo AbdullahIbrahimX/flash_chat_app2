@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat_app2/components/flash_button.dart';
+import 'package:flash_chat_app2/screens/chat_screen.dart';
+import 'package:flash_chat_app2/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -10,6 +13,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  String email;
+  String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +31,9 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 48.0,
             ),
             TextField(
+              style: TextStyle(color: Colors.black),
               onChanged: (value) {
-                //Do something with the user input.
+                email = value;
               },
               decoration: kLoginInputDecoration.copyWith(
                 hintText: "Enter your Email",
@@ -36,8 +43,10 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 8.0,
             ),
             TextField(
+              obscureText: true,
+              style: TextStyle(color: Colors.black),
               onChanged: (value) {
-                //Do something with the user input.
+                password = value;
               },
               decoration: kLoginInputDecoration.copyWith(
                 hintText: "Enter your password",
@@ -49,7 +58,26 @@ class _LoginScreenState extends State<LoginScreen> {
             FlashButton(
               text: 'Log In',
               color: Colors.lightBlueAccent,
-              onPress: () {},
+              onPress: () async {
+                try {
+                  UserCredential userCredential =
+                      await auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+                  if (userCredential != null) {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == "user-not-found") {
+                    print("no such user!");
+                    Navigator.popAndPushNamed(context, RegistrationScreen.id);
+                  } else if (e.code == "wrong-password") {
+                    print("email or password is wrong");
+                  }
+                } catch (e) {
+                  print(e);
+                }
+              },
             ),
           ],
         ),
