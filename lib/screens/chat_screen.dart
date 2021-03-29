@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,29 @@ class ChatScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
+class Chat extends StatelessWidget {
+  CollectionReference chat = FirebaseFirestore.instance.collection("chat");
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: chat.snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          return Text("");
+        });
+  }
+}
+
 class _ChatScreenState extends State<ChatScreen> {
   User user = FirebaseAuth.instance.currentUser;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void getChatData() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
