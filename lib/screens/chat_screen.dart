@@ -10,28 +10,21 @@ class ChatScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-class Chat extends StatelessWidget {
-  CollectionReference chat = FirebaseFirestore.instance.collection("chat");
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: chat.snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          return Text("");
-        });
-  }
-}
-
 class _ChatScreenState extends State<ChatScreen> {
-  User user = FirebaseAuth.instance.currentUser;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  User _user = FirebaseAuth.instance.currentUser;
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  String messageText;
 
   @override
   void initState() {
     super.initState();
   }
 
-  void getChatData() {}
+  void messageStream() async {
+    await for (var snapshot in _firestore.collection("chat").snapshots()) {
+      for (var doc in snapshot.docs) {}
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +55,17 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
-                        //Do something with the user input.
+                        messageText = value;
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
                   FlatButton(
                     onPressed: () {
-                      //Implement send functionality.
+                      _firestore.collection("chat").add({
+                        "message": messageText,
+                        "sender": _user.email,
+                      });
                     },
                     child: Text(
                       'Send',
@@ -79,7 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               ),
             ),
-            Text(user.email)
+            Text(_user.email)
           ],
         ),
       ),
