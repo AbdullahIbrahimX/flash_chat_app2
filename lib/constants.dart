@@ -59,3 +59,14 @@ Widget getLogo({height: double}) {
     ),
   );
 }
+
+const kUserBorderRadius = BorderRadius.only(
+  topLeft: Radius.circular(30.0),
+  bottomLeft: Radius.circular(30.0),
+  bottomRight: Radius.circular(30.0),
+);
+const kOthersBorderRadius = BorderRadius.only(
+  topRight: Radius.circular(30.0),
+  bottomLeft: Radius.circular(30.0),
+  bottomRight: Radius.circular(30.0),
+);
